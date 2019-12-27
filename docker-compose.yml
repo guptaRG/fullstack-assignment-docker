@@ -28,26 +28,31 @@ services:
       # Where our data will be persisted
     volumes:
       - sqldata:/var/lib/mysql
-
-  django:
-    container_name: django
-    build: ./services/django
-    env_file: ./services/django/.env
-    depends_on:
-      - mysql
     networks:
       - to-do-network
-    volumes:
-      - logs:/fractal_analytics_platform/logs/
-    restart: unless-stopped
-    labels:
-      org.label-schema.group: "fullstack-assignment-platform"
 
-  nginx:
-    build: ./nginx
-    ports:
-      - 1337:80
-    networks:
-      - to-do-network
-    depends_on:
-      - django
+  # django:
+  #   container_name: django
+  #   build: ./services/django
+  #   env_file: ./services/django/.env
+  #   depends_on:
+  #     - mysql
+  #   expose:
+  #     - '8001'
+  #   networks:
+  #     - to-do-network
+  #   volumes:
+  #     - logs:/fractal_analytics_platform/logs/
+  #   restart: unless-stopped
+  #   labels:
+  #     org.label-schema.group: "fullstack-assignment-platform"
+
+  # nginx:
+  #   build: ./services/nginx
+  #   container_name: nginx
+  #   ports:
+  #     - 1337:80
+  #   networks:
+  #     - to-do-network
+  #   depends_on:
+  #     - django
